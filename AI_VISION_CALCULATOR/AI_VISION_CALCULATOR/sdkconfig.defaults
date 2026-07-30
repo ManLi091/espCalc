@@ -1,0 +1,25 @@
+# AI Vision Calculator — simplified firmware
+CONFIG_IDF_TARGET="esp32s3"
+CONFIG_ESPTOOLPY_FLASHSIZE_16MB=y
+CONFIG_PARTITION_TABLE_CUSTOM=y
+CONFIG_ESP_DEFAULT_CPU_FREQ_MHZ_240=y
+CONFIG_ESP_WIFI_SOFTAP_SUPPORT=n
+
+# PSRAM — required by the camera driver for frame buffers.
+# Assumes octal PSRAM (typical for N16R8-style modules) — check your
+# module's exact part number; switch to CONFIG_SPIRAM_MODE_QUAD if it's
+# quad PSRAM instead.
+CONFIG_SPIRAM=y
+CONFIG_SPIRAM_MODE_OCT=y
+CONFIG_SPIRAM_SPEED_80M=y
+CONFIG_SPIRAM_USE_MALLOC=y
+
+# The original project ran HTTPS/OpenAI calls in a dedicated task with an
+# explicit 16KB stack — mbedtls TLS handshakes are notoriously stack-
+# hungry. This firmware intentionally runs everything (WiFi, HTTPS,
+# camera, display) synchronously on the main task instead, so the main
+# task itself needs enough headroom for that TLS handshake plus cJSON
+# plus the camera/display work — the ESP-IDF default (~3.5KB) is not
+# enough and risks a stack-overflow crash.
+CONFIG_ESP_MAIN_TASK_STACK_SIZE=10240
+
