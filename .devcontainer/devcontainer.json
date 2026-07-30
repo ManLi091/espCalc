@@ -1,0 +1,24 @@
+{
+  "name": "ESP-IDF Codespaces",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "args": {
+      "DOCKER_TAG": "v5.3-rc1"
+    }
+  },
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "bash",
+        "idf.gitPath": "/usr/bin/git",
+        "idf.showOnboardingOnInit": false,
+        "extensions.ignoreRecommendations": true
+      },
+      "extensions": [
+        "espressif.esp-idf-extension",
+        "espressif.esp-idf-web"
+      ]
+    }
+  },
+  "runArgs": ["--privileged"]
+}
