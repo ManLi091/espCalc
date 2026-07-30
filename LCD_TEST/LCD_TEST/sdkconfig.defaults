@@ -1,0 +1,11 @@
+# Standalone LCD test — minimal config, but PSRAM still needs to be on
+# since display.c allocates its line buffer with MALLOC_CAP_SPIRAM (same
+# as the main project, for consistency).
+CONFIG_IDF_TARGET="esp32s3"
+CONFIG_ESPTOOLPY_FLASHSIZE_16MB=y
+CONFIG_ESP_DEFAULT_CPU_FREQ_MHZ_240=y
+
+CONFIG_SPIRAM=y
+CONFIG_SPIRAM_MODE_OCT=y
+CONFIG_SPIRAM_SPEED_80M=y
+CONFIG_SPIRAM_USE_MALLOC=y
